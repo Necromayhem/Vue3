@@ -1,14 +1,15 @@
 <script setup>
-import SongRow from '@/components/SongRow.vue'
+import SongRow from '../components/SongRow.vue'
+
 import Magnify from 'vue-material-design-icons/Magnify.vue'
 import Play from 'vue-material-design-icons/Play.vue'
 import Pause from 'vue-material-design-icons/Pause.vue'
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue'
 import HeartOutline from 'vue-material-design-icons/HeartOutline.vue'
-import ClockTimeFiveOutLine from 'vue-material-design-icons/ClockTimeFiveOutLine.vue'
-import artist from '@/artist.json'
+import ClockTimeFiveOutline from 'vue-material-design-icons/ClockTimeFiveOutline.vue'
+import artist from '../artist.json'
 
-import { useSongStore } from '@/stores/song'
+import { useSongStore } from '../stores/song'
 import { storeToRefs } from 'pinia'
 const useSong = useSongStore()
 const { isPlaying, currentTrack, currentArtist } = storeToRefs(useSong)
@@ -43,7 +44,7 @@ const playFunc = () => {
 				<div class="flex gap-4 items-center justify-start bottom-0 mb-1.5">
 					<button
 						class="p-2.5 px-6 rounded-full bg-[#EF5465]"
-						@click="$event => playFunc()"
+						@click="playFunc()"
 					>
 						<div v-if="!isPlaying" class="flex items-center">
 							<Play fillColor="#FFFFFF" :size="20" />
@@ -56,21 +57,21 @@ const playFunc = () => {
 					</button>
 					<button
 						type="button"
-						class="rounded-full p-2 border-[#52525D] hover:bg-[#2b2b30]"
+						class="rounded-full p-2 border border-[#52525D] hover:bg-[#2b2b30]"
 					>
 						<HeartOutline fillColor="#EAEAEA" :size="20" />
 					</button>
 					<button
 						type="button"
-						class="rounded-full p-2 border-[#52525D] hover:bg-[#2b2b30]"
+						class="rounded-full p-2 border border-[#52525D] hover:bg-[#2b2b30]"
 					>
 						<DotsHorizontal fillColor="#EAEAEA" :size="20" />
 					</button>
 				</div>
 			</div>
 		</div>
-		<div class="mt-11"></div>
 
+		<div class="mt-11"></div>
 		<div class="flex justify-between pt-2 min-w-[650px]">
 			<ul class="flex items-center justify-start w-full text-gray-400 h-9">
 				<li class="pl-8">
@@ -98,7 +99,7 @@ const playFunc = () => {
 					<button
 						class="font-light cursor-pointer text-[#bebebe] border-b-2 border-b-[#121216] hover:border-b-[#FFFFFF] pb-[8px] hover:text-[#FFFFFF]"
 					>
-						Playlist
+						Playlists
 					</button>
 				</li>
 				<li class="pl-10">
@@ -120,7 +121,7 @@ const playFunc = () => {
 			<div class="text-white text-3xl font-semibold mb-7">Top tracks</div>
 
 			<div
-				class="flex items-center border-[#525254] bg-[#23232D] rounded-sm text-[#c9c9c9] w-[300px]"
+				class="flex items-center border border-[#525254] bg-[#23232D] rounded-sm text-[#c9c9c9] w-[300px]"
 			>
 				<Magnify fillColor="#9B9BA1" class="px-1" />
 				<input
@@ -137,7 +138,7 @@ const playFunc = () => {
 			class="flex items-center justify-between min-w-[590px] mx-8 border-b border-b-[#302d2d] py-2.5 px-1.5"
 		>
 			<div class="text-xs font-light text-[#aeaeae]">TRACK</div>
-			<ClockTimeFiveOutLine fillColor="#aeaeae" :size="20" />
+			<ClockTimeFiveOutline fillColor="#aeaeae" :size="20" />
 		</div>
 
 		<ul
@@ -148,4 +149,14 @@ const playFunc = () => {
 			<SongRow v-if="track" :track="track" />
 		</ul>
 	</div>
+	<div class="mb-40"></div>
 </template>
+
+<style scoped>
+.circle {
+	width: 4px;
+	height: 4px;
+	background-color: rgb(189, 189, 189);
+	border-radius: 100%;
+}
+</style>

@@ -1,13 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
-import Play from 'vue-material-design-icons/Play.vue'
-import HeartOutline from 'vue-material-design-icons/HeartOutline.vue'
-import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue'
-let isHover = ref(false)
-const props = defineProps({ slide: Object })
-</script>
-
 <template>
 	<div class="pl-8">
 		<RouterLink to="/artist" class="cursor-pointer">
@@ -68,17 +58,28 @@ const props = defineProps({ slide: Object })
 				/>
 				<img class="rounded-md aspect-square" :src="slide.url" />
 			</div>
+
 			<div class="text-white text-left mt-2">
 				<div class="text-sm hover:underline cursor-pointer">
 					{{ slide.song }}
 				</div>
-				<div class="text-[13px] flex hover:underline text-[#838590] pt-0.5">
+				<div class="text-[13px] flex hover:underline text-[#858590] pt-0.5">
 					by {{ slide.by }}
 				</div>
-				<div class="text-[11px] text-[#838590] pt-0.5">
+				<div class="text-[11px] pt-0.5 text-[#858590]">
 					Released on {{ slide.releasedOn }}
 				</div>
 			</div>
 		</RouterLink>
 	</div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
+import Play from 'vue-material-design-icons/Play.vue'
+import HeartOutline from 'vue-material-design-icons/HeartOutline.vue'
+import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue'
+let isHover = ref(false)
+const props = defineProps({ slide: Object })
+</script>

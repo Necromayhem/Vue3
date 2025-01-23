@@ -1,9 +1,23 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { onBeforeMount } from 'vue'
+import { RouterView, RouterLink } from 'vue-router'
 
 import Magnify from 'vue-material-design-icons/Magnify.vue'
 import Bell from 'vue-material-design-icons/Bell.vue'
 import SideMenuItem from './components/SideMenuItem.vue'
+import MusicPlayer from './components/MusicPlayer.vue'
+import SongLyrics from './components/SongLyrics.vue'
+
+import { useSongStore } from './stores/song'
+import { storeToRefs } from 'pinia'
+const useSong = useSongStore()
+const { isPlaying, currentTrack, isLyrics, trackTime } = storeToRefs(useSong)
+
+onBeforeMount(() => {
+	isPlaying.value = false
+	isLyrics.value = false
+	trackTime.value = '0:00'
+})
 </script>
 
 <template>
@@ -23,7 +37,10 @@ import SideMenuItem from './components/SideMenuItem.vue'
 			<div class="mr-4 p-1 hover:bg-gray-600 rounded-full cursor-pointer">
 				<Bell fillColor="#FFFFFF" :size="20" />
 			</div>
-			<img class="rounded-full w-[33px]" src="" alt="profile_picture" />
+			<img
+				class="rounded-full w-[33px]"
+				src="https://yt3.ggpht.com/e9o-24_frmNSSVvjS47rT8qCHgsHNiedqgXbzmrmpsj6H1ketcufR1B9vLXTZRa30krRksPj=s88-c-k-c0x00ffffff-no-rj-mo"
+			/>
 		</div>
 	</div>
 
@@ -33,31 +50,26 @@ import SideMenuItem from './components/SideMenuItem.vue'
 	>
 		<div class="w-full pl-6 pt-3 cursor-pointer">
 			<RouterLink to="/">
-				<img
-					width="130"
-					src="../public/images/deezer-logo.png"
-					alt="deezer_logo"
-				/>
+				<img width="130" src="/images/deezer-logo.png" />
 			</RouterLink>
 		</div>
+
 		<div class="mt-[53px]"></div>
 
+		<SideMenuItem iconString="music" :iconSize="20" pageUrl="/" name="Music" />
 		<SideMenuItem
-			iconString="music"
-			:iconSize="20"
-			pageUrl="/"
-			name="Music"
-		/><SideMenuItem
 			iconString="podcast"
 			:iconSize="20"
-			pageUrl="/podcadts"
+			pageUrl="/podcasts"
 			name="Podcasts"
-		/><SideMenuItem
+		/>
+		<SideMenuItem
 			iconString="explore"
 			:iconSize="20"
 			pageUrl="/artist"
 			name="Explore"
-		/><SideMenuItem
+		/>
+		<SideMenuItem
 			iconString="favourite"
 			:iconSize="20"
 			pageUrl="/favourite"
@@ -80,6 +92,13 @@ import SideMenuItem from './components/SideMenuItem.vue'
 	>
 		<RouterView />
 	</div>
-</template>
 
-<style></style>
+	<MusicPlayer v-if="currentTrack" />
+
+	<SongLyrics
+		v-if="isLyrics"
+		:class="{
+			'animate__animated animate__slideInUp animate__faster': isLyrics,
+		}"
+	/>
+</template>

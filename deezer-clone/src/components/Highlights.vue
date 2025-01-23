@@ -1,11 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
-import Play from 'vue-material-design-icons/Play.vue'
-let isHover = ref(false)
-const props = defineProps({ by: String, song: String, image: String })
-</script>
-
 <template>
 	<RouterLink to="/artist" class="cursor-pointer">
 		<div
@@ -37,3 +29,11 @@ const props = defineProps({ by: String, song: String, image: String })
 		</div>
 	</RouterLink>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
+import Play from 'vue-material-design-icons/Play.vue'
+let isHover = ref(false)
+const props = defineProps({ by: String, song: String, image: String })
+</script>

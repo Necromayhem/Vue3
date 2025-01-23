@@ -1,20 +1,3 @@
-<script setup>
-import { ref, toRefs } from 'vue'
-import { RouterLink } from 'vue-router'
-
-import Play from 'vue-material-design-icons/Play.vue'
-
-let isHover = ref(false)
-
-const props = defineProps({
-	by: String,
-	image: String,
-	text: String,
-	to: String,
-})
-const { by, images, text, to } = toRefs(props)
-</script>
-
 <template>
 	<div>
 		<RouterLink :to="to" class="relative">
@@ -58,3 +41,20 @@ const { by, images, text, to } = toRefs(props)
 		</RouterLink>
 	</div>
 </template>
+
+<script setup>
+import { ref, toRefs } from 'vue'
+import { RouterLink } from 'vue-router'
+
+import Play from 'vue-material-design-icons/Play.vue'
+
+let isHover = ref(false)
+
+const props = defineProps({
+	by: String,
+	image: String,
+	text: String,
+	to: String,
+})
+const { by, images, text, to } = toRefs(props)
+</script>

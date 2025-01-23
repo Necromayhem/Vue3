@@ -1,3 +1,54 @@
+<template>
+	<div>
+		<div class="flex justify-between pb-5 ml-8 mr-6">
+			<RouterLink
+				to="/artist"
+				@mouseenter="isHoverCategory = true"
+				@mouseleave="isHoverCategory = false"
+				:class="isHoverCategory ? 'hover:text-[#EF5465]' : 'text-white'"
+				class="flex items-center font-semibold text-xl cursor-pointer"
+			>
+				{{ category }}
+				<ChevronRight
+					:fillColor="isHoverCategory ? '#EF5465' : '#FFFFFF'"
+					:size="25"
+					class="mt-1"
+				/>
+			</RouterLink>
+
+			<div class="flex items-center">
+				<button
+					@click="slideTo(false)"
+					class="rounded-full p-2 hover:bg-[#2b2b2b]"
+				>
+					<ChevronLeft fillColor="#FFFFFF" :size="30" />
+				</button>
+				<div class="px-2"></div>
+				<button
+					@click="slideTo(true)"
+					class="rounded-full p-2 hover:bg-[#2b2b2b]"
+				>
+					<ChevronRight fillColor="#FFFFFF" :size="30" />
+				</button>
+			</div>
+		</div>
+
+		<Carousel
+			class="mr-8"
+			ref="carousel"
+			v-model="currentSlide"
+			:items-to-show="4"
+			:items-to-scroll="4"
+			:transition="800"
+			snapAlign="start"
+		>
+			<Slide v-for="slide in data" :key="slide" class="flex items-baseline">
+				<SliderItem :slide="slide" />
+			</Slide>
+		</Carousel>
+	</div>
+</template>
+
 <script setup>
 import { ref, toRefs } from 'vue'
 import { RouterLink } from 'vue-router'
@@ -9,6 +60,7 @@ import SliderItem from './SliderItem.vue'
 
 let currentSlide = ref(0)
 let isHoverCategory = ref(false)
+let isHover = ref(false)
 
 const props = defineProps({
 	category: String,
@@ -34,54 +86,3 @@ const slideTo = val => {
 	}
 }
 </script>
-
-<template>
-	<div>
-		<div class="flex justify-between pb-5 ml-8 mr-6">
-			<RouterLink
-				to="/artist"
-				@mouseenter="$event => (isHoverCategory = true)"
-				@mouseleave="$event => (isHoverCategory = false)"
-				:class="isHoverCategory ? 'hover:text-[#EF5465]' : 'text-white'"
-				class="flex items-center font-semibold text-xl cursor-pointer"
-			>
-				{{ category }}
-				<ChevronRight
-					:fillColor="isHoverCategory ? '#EF5465' : '#FFFFFF'"
-					:size="25"
-					class="mt-1"
-				/>
-			</RouterLink>
-
-			<div class="flex items-center">
-				<button
-					@click="$event => slideTo(false)"
-					class="rounded-full p-2 hover:bg-[#2b2b2b]"
-				>
-					<ChevronLeft fillColor="#FFFFFF" :size="30" />
-				</button>
-				<div class="px-2"></div>
-				<button
-					@click="$event => slideTo(true)"
-					class="rounded-full p-2 hover:bg-[#2b2b2b]"
-				>
-					<ChevronRight fillColor="#FFFFFF" :size="30" />
-				</button>
-			</div>
-		</div>
-
-		<Carousel
-			class="mr-8"
-			ref="carousel"
-			v-model="currentSlide"
-			:items-to-show="4"
-			:items-to-scroll="4"
-			:transition="800"
-			snapAlign="start"
-		>
-			<Slide v-for="slide in data" :key="slide" class="flex items-baseline">
-				<SliderItem :slide="slide" />
-			</Slide>
-		</Carousel>
-	</div>
-</template>
